@@ -1,0 +1,872 @@
+
+cycle:8 epoch:13 highest score:63609.468596374645
+cycle:8 epoch:16 highest score:63609.499200173166
+cycle:8 ~~~~ End of epoch ~~~~
+cycle:9 epoch:4 highest score:63609.632078085415
+cycle:9 ~~~~ End of epoch ~~~~
+cycle:10 epoch:25 highest score:63610.13177409578
+cycle:10 epoch:47 highest score:63611.69034503722
+cycle:10 ~~~~ End of epoch ~~~~
+
+ship :> make_score() ship :> score --> 63611.69034503722 (<class 'numpy.float64'>)
+ship :> chromosome --> [[-15, 0], [0, 1], [-1, 2], [6, 1], [20, 0], [5, 1], [17, 0], [2, 1], [-12, 2], [-1, 3], [14, 4], [8, 4], [-3, 4], [-14, 3], [-26, 3], [-11, 3], [0, 4], [4, 3], [-11, 3], [-5, 4], [10, 3], [8, 2], [-7, 1], [-14, 2], [-20, 3], [-22, 4], [-7, 3], [-17, 4], [-17, 4], [-14, 3], [-29, 4], [-44, 4], [-35, 3], [-20, 4], [-35, 4], [-48, 4], [-46, 4], [-42, 4], [-27, 4], [-15, 4], [-19, 3], [-22, 4], [-25, 4], [-25, 3], [-19, 3], [-26, 3], [-24, 4], [-34, 4], [-49, 4], [-34, 3], [-49, 4], [-34, 3], [-49, 4], [-42, 4], [-33, 4], [-41, 3], [-42, 3], [-41, 2], [-26, 3], [-11, 2], [4, 1], [-11, 0], [-1, 1], [-15, 0], [0, 1]] (<class 'list'>)
+ 
+
+
+10
+BACK
+FORUM
+RESULTS
+LEADERBOARD
+SETTINGS
+FRIENDS
+Mars Lander
+Best score
+ N/A
+Rank
+ N/A
+
+ 	The Goal
+The goal for your program is to safely land the "Mars Lander" shuttle, the landing ship which contains the Opportunity rover. Mars Lander is guided by a program, and right now the failure rate for landing on the NASA simulator is unacceptable.
+
+This puzzle is the second level of the "Mars Lander" trilogy. In this special puzzle, you need to minimize the quantity of fuel used.
+ 	Rules
+Built as a game, the simulator puts Mars Lander on a limited zone of Mars sky.
+
+	The zone is 7000m wide and 3000m high.
+
+There is a unique area of flat ground on the surface of Mars, which is at least 1000 meters wide.Every second, depending on the current flight parameters (location, speed, fuel ...), the program must provide the new desired tilt angle and thrust power of Mars Lander:
+	Angle goes from -90° to 90° . Thrust power goes from 0 to 4 .
+  The game simulates a free fall without atmosphere. Gravity on Mars is 3.711 m/s² . For a thrust power of X, a push force equivalent to X m/s² is generated and X liters of fuel are consumed. As such, a thrust power of 4 in an almost vertical position is needed to compensate for the gravity on Mars.
+
+For a landing to be successful, the ship must:
+land on flat ground
+land in a vertical position (tilt angle = 0°)
+vertical speed must be limited ( ≤ 40m/s in absolute value)
+horizontal speed must be limited ( ≤ 20m/s in absolute value)
+ 	Note
+Tests and validators are only slightly different. A program that passes a given test will pass the corresponding validator without any problem.
+ 	Game Input
+The program must first read the initialization data from standard input. Then, within an infinite loop, the program must read the data from the standard input related to Mars Lander's current state and provide to the standard output the instructions to move Mars Lander.
+Initialization input
+Line 1: the number surfaceN of points used to draw the surface of Mars.
+Next surfaceN lines: a couple of integers landX landY providing the coordinates of a ground point. By linking all the points together in a sequential fashion, you form the surface of Mars which is composed of several segments. For the first point, landX = 0 and for the last point, landX = 6999
+Input for one game turn
+A single line with 7 integers: X Y hSpeed vSpeed fuel rotate power
+X,Y are the coordinates of Mars Lander (in meters).
+hSpeed and vSpeed are the horizontal and vertical speed of Mars Lander (in m/s). These can be negative depending on the direction of Mars Lander.
+fuel is the remaining quantity of fuel in liters. When there is no more fuel, the power of thrusters falls to zero.
+rotate is the angle of rotation of Mars Lander expressed in degrees.
+power is the thrust power of the landing ship.
+Output for one game turn
+A single line with 2 integers: rotate power :
+rotate is the desired rotation angle for Mars Lander. Please note that for each turn the actual value of the angle is limited to the value of the previous turn +/- 15°.
+power is the desired thrust power. 0 = off. 4 = maximum power. Please note that for each turn the value of the actual power is limited to the value of the previous turn +/- 1.
+Constraints
+2 ≤ surfaceN < 30
+0 ≤ X < 7000
+0 ≤ Y < 3000
+-500 < hSpeed, vSpeed < 500
+0 ≤ fuel ≤ 2000
+-90 ≤ rotate ≤ 90
+0 ≤ power ≤ 4
+Response time per turn ≤ 100ms
+Example
+Initialization input
+6         	(surfaceN) Surface made of 6 points
+0 1500      	(landX landY)
+1000 2000	(landX landY)
+2000 500	(landX landY) Start of flat ground
+3500 500	(landX landY) End of flat ground
+5000 1500	(landX landY)
+6999 1000	(landX landY)
+No output expected
+You can ignore this but you need to read the values.
+Input for turn 1
+5000 2500 -50 0 1000 90 0	(X Y hSpeed vSpeed fuel rotate power)
+Output for turn 1
+-45 4 (rotate power)
+Requested rotation to the right, maximum thrust power
+Input for turn 2
+4950 2498 -51 -3 999 75 1	(X Y hSpeed vSpeed fuel rotate power)
+Tilt angle changed only by 15° and thrust power only by 1
+Output for turn 2
+-45 4 (rotate power)
+Same request as previous turn
+Input for turn 3
+4898 2493 -53 -6 997 60 2	(X Y hSpeed vSpeed fuel rotate power)
+Output for turn 3
+-45 4 (rotate power)
+Same request as previous turn
+Synopsis
+Same place, the next day. You have joined Jeff and Mike in the crisis meeting room of the Kennedy Space Center.
+ 
+“OK, I see you got the general idea. Mike, what do you think of our new recruit so far? ”
+“There's still a long way to go... ”
+“Oh c'mon Mike, you're always so skeptical! ”
+ 
+Jeff turns and glares at you with his steel-blue eyes.
+
+“ But he IS right! This first test was just a warm-up. Now you'll need to deal with more challenging situations. You see, we must be prepared to face anything, the success of the mission depends upon it! ”
+Console outputGame informationAction (Output Stream)Debug (Errors Stream) 
+Game information:
+Landing phase starting
+X=2500m, Y=2700m, HSpeed=0m/s VSpeed=0m/s
+Fuel=550l, Angle=0°, Power=0 (0.0m/s2)
+00
+66
+Standard Error Stream:
+land x,y: 0 100
+land x,y: 1000 500
+land x,y: 1500 1500
+land x,y: 3000 1000
+land x,y: 4000 150
+land x,y: 5500 150
+land x,y: 6999 800
+step 0
+command -15 0
+Standard Output Stream:
+-15 0
+Game information:
+Landing in progress...
+X=2500m, Y=2698m, HSpeed=0m/s VSpeed=-4m/s
+Fuel=550l, Angle=-15°, Power=0 (0.0m/s2)
+01
+66
+Standard Error Stream:
+step 1
+command 0 1
+Standard Output Stream:
+0 1
+Game information:
+Landing in progress...
+X=2500m, Y=2693m, HSpeed=0m/s VSpeed=-6m/s
+Fuel=549l, Angle=0°, Power=1 (1.0m/s2)
+02
+66
+Standard Error Stream:
+step 2
+command -1 2
+Standard Output Stream:
+-1 2
+Game information:
+Landing in progress...
+X=2500m, Y=2686m, HSpeed=0m/s VSpeed=-8m/s
+Fuel=547l, Angle=-1°, Power=2 (2.0m/s2)
+03
+66
+Standard Error Stream:
+step 3
+command 6 1
+Standard Output Stream:
+6 1
+Game information:
+Landing in progress...
+X=2500m, Y=2676m, HSpeed=0m/s VSpeed=-11m/s
+Fuel=546l, Angle=6°, Power=1 (1.0m/s2)
+04
+66
+Standard Error Stream:
+step 4
+command 20 0
+Standard Output Stream:
+20 0
+Game information:
+Landing in progress...
+X=2500m, Y=2664m, HSpeed=0m/s VSpeed=-15m/s
+Fuel=546l, Angle=20°, Power=0 (0.0m/s2)
+05
+66
+Standard Error Stream:
+step 5
+command 5 1
+Standard Output Stream:
+5 1
+Game information:
+Landing in progress...
+X=2500m, Y=2648m, HSpeed=0m/s VSpeed=-17m/s
+Fuel=545l, Angle=5°, Power=1 (1.0m/s2)
+06
+66
+Standard Error Stream:
+step 6
+command 17 0
+Standard Output Stream:
+17 0
+Game information:
+Landing in progress...
+X=2500m, Y=2629m, HSpeed=0m/s VSpeed=-21m/s
+Fuel=545l, Angle=17°, Power=0 (0.0m/s2)
+07
+66
+Standard Error Stream:
+step 7
+command 2 1
+Standard Output Stream:
+2 1
+Game information:
+Landing in progress...
+X=2499m, Y=2606m, HSpeed=0m/s VSpeed=-24m/s
+Fuel=544l, Angle=2°, Power=1 (1.0m/s2)
+08
+66
+Standard Error Stream:
+step 8
+command -12 2
+Standard Output Stream:
+-12 2
+Game information:
+Landing in progress...
+X=2500m, Y=2582m, HSpeed=0m/s VSpeed=-25m/s
+Fuel=542l, Angle=-12°, Power=2 (2.0m/s2)
+09
+66
+Standard Error Stream:
+step 9
+command -1 3
+Standard Output Stream:
+-1 3
+Game information:
+Landing in progress...
+X=2500m, Y=2556m, HSpeed=0m/s VSpeed=-26m/s
+Fuel=539l, Angle=-1°, Power=3 (3.0m/s2)
+10
+66
+Standard Error Stream:
+step 10
+command 14 4
+Standard Output Stream:
+14 4
+Game information:
+Landing in progress...
+X=2500m, Y=2530m, HSpeed=-1m/s VSpeed=-26m/s
+Fuel=535l, Angle=14°, Power=4 (4.0m/s2)
+11
+66
+Standard Error Stream:
+step 11
+command 8 4
+Standard Output Stream:
+8 4
+Game information:
+Landing in progress...
+X=2499m, Y=2504m, HSpeed=-1m/s VSpeed=-26m/s
+Fuel=531l, Angle=8°, Power=4 (4.0m/s2)
+12
+66
+Standard Error Stream:
+step 12
+command -3 4
+Standard Output Stream:
+-3 4
+Game information:
+Landing in progress...
+X=2497m, Y=2478m, HSpeed=-1m/s VSpeed=-25m/s
+Fuel=527l, Angle=-3°, Power=4 (4.0m/s2)
+13
+66
+Standard Error Stream:
+step 13
+command -14 3
+Standard Output Stream:
+-14 3
+Game information:
+Landing in progress...
+X=2497m, Y=2452m, HSpeed=0m/s VSpeed=-26m/s
+Fuel=524l, Angle=-14°, Power=3 (3.0m/s2)
+14
+66
+Standard Error Stream:
+step 14
+command -26 3
+Standard Output Stream:
+-26 3
+Game information:
+Landing in progress...
+X=2497m, Y=2426m, HSpeed=1m/s VSpeed=-27m/s
+Fuel=521l, Angle=-26°, Power=3 (3.0m/s2)
+15
+66
+Standard Error Stream:
+step 15
+command -11 3
+Standard Output Stream:
+-11 3
+Game information:
+Landing in progress...
+X=2498m, Y=2398m, HSpeed=2m/s VSpeed=-28m/s
+Fuel=518l, Angle=-11°, Power=3 (3.0m/s2)
+16
+66
+Standard Error Stream:
+step 16
+command 0 4
+Standard Output Stream:
+0 4
+Game information:
+Landing in progress...
+X=2500m, Y=2370m, HSpeed=2m/s VSpeed=-28m/s
+Fuel=514l, Angle=0°, Power=4 (4.0m/s2)
+17
+66
+Standard Error Stream:
+step 17
+command 4 3
+Standard Output Stream:
+4 3
+Game information:
+Landing in progress...
+X=2501m, Y=2342m, HSpeed=1m/s VSpeed=-28m/s
+Fuel=511l, Angle=4°, Power=3 (3.0m/s2)
+18
+66
+Standard Error Stream:
+step 18
+command -11 3
+Standard Output Stream:
+-11 3
+Game information:
+Landing in progress...
+X=2503m, Y=2313m, HSpeed=2m/s VSpeed=-29m/s
+Fuel=508l, Angle=-11°, Power=3 (3.0m/s2)
+19
+66
+Standard Error Stream:
+step 19
+command -5 4
+Standard Output Stream:
+-5 4
+Game information:
+Landing in progress...
+X=2505m, Y=2284m, HSpeed=2m/s VSpeed=-29m/s
+Fuel=504l, Angle=-5°, Power=4 (4.0m/s2)
+20
+66
+Standard Error Stream:
+step 20
+command 10 3
+Standard Output Stream:
+10 3
+Game information:
+Landing in progress...
+X=2507m, Y=2255m, HSpeed=2m/s VSpeed=-30m/s
+Fuel=501l, Angle=10°, Power=3 (3.0m/s2)
+21
+66
+Standard Error Stream:
+step 21
+command 8 2
+Standard Output Stream:
+8 2
+Game information:
+Landing in progress...
+X=2509m, Y=2224m, HSpeed=1m/s VSpeed=-31m/s
+Fuel=499l, Angle=8°, Power=2 (2.0m/s2)
+22
+66
+Standard Error Stream:
+step 22
+command -7 1
+Standard Output Stream:
+-7 1
+Game information:
+Landing in progress...
+X=2510m, Y=2191m, HSpeed=2m/s VSpeed=-34m/s
+Fuel=498l, Angle=-7°, Power=1 (1.0m/s2)
+23
+66
+Standard Error Stream:
+step 23
+command -14 2
+Standard Output Stream:
+-14 2
+Game information:
+Landing in progress...
+X=2512m, Y=2156m, HSpeed=2m/s VSpeed=-36m/s
+Fuel=496l, Angle=-14°, Power=2 (2.0m/s2)
+24
+66
+Standard Error Stream:
+step 24
+command -20 3
+Standard Output Stream:
+-20 3
+Game information:
+Landing in progress...
+X=2515m, Y=2120m, HSpeed=3m/s VSpeed=-37m/s
+Fuel=493l, Angle=-20°, Power=3 (3.0m/s2)
+25
+66
+Standard Error Stream:
+step 25
+command -22 4
+Standard Output Stream:
+-22 4
+Game information:
+Landing in progress...
+X=2519m, Y=2083m, HSpeed=5m/s VSpeed=-37m/s
+Fuel=489l, Angle=-22°, Power=4 (4.0m/s2)
+26
+66
+Standard Error Stream:
+step 26
+command -7 3
+Standard Output Stream:
+-7 3
+Game information:
+Landing in progress...
+X=2524m, Y=2046m, HSpeed=5m/s VSpeed=-38m/s
+Fuel=486l, Angle=-7°, Power=3 (3.0m/s2)
+27
+66
+Standard Error Stream:
+step 27
+command -17 4
+Standard Output Stream:
+-17 4
+Game information:
+Landing in progress...
+X=2529m, Y=2008m, HSpeed=6m/s VSpeed=-37m/s
+Fuel=482l, Angle=-17°, Power=4 (4.0m/s2)
+28
+66
+Standard Error Stream:
+step 28
+command -17 4
+Standard Output Stream:
+-17 4
+Game information:
+Landing in progress...
+X=2536m, Y=1971m, HSpeed=7m/s VSpeed=-37m/s
+Fuel=478l, Angle=-17°, Power=4 (4.0m/s2)
+29
+66
+Standard Error Stream:
+step 29
+command -14 3
+Standard Output Stream:
+-14 3
+Game information:
+Landing in progress...
+X=2544m, Y=1933m, HSpeed=8m/s VSpeed=-38m/s
+Fuel=475l, Angle=-14°, Power=3 (3.0m/s2)
+30
+66
+Standard Error Stream:
+step 30
+command -29 4
+Standard Output Stream:
+-29 4
+Game information:
+Landing in progress...
+X=2553m, Y=1895m, HSpeed=10m/s VSpeed=-38m/s
+Fuel=471l, Angle=-29°, Power=4 (4.0m/s2)
+31
+66
+Standard Error Stream:
+step 31
+command -44 4
+Standard Output Stream:
+-44 4
+Game information:
+Landing in progress...
+X=2564m, Y=1856m, HSpeed=13m/s VSpeed=-39m/s
+Fuel=467l, Angle=-44°, Power=4 (4.0m/s2)
+32
+66
+Standard Error Stream:
+step 32
+command -35 3
+Standard Output Stream:
+-35 3
+Game information:
+Landing in progress...
+X=2578m, Y=1816m, HSpeed=14m/s VSpeed=-40m/s
+Fuel=464l, Angle=-35°, Power=3 (3.0m/s2)
+33
+66
+Standard Error Stream:
+step 33
+command -20 4
+Standard Output Stream:
+-20 4
+Game information:
+Landing in progress...
+X=2593m, Y=1776m, HSpeed=16m/s VSpeed=-40m/s
+Fuel=460l, Angle=-20°, Power=4 (4.0m/s2)
+34
+66
+Standard Error Stream:
+step 34
+command -35 4
+Standard Output Stream:
+-35 4
+Game information:
+Landing in progress...
+X=2610m, Y=1735m, HSpeed=18m/s VSpeed=-41m/s
+Fuel=456l, Angle=-35°, Power=4 (4.0m/s2)
+35
+66
+Standard Error Stream:
+step 35
+command -48 4
+Standard Output Stream:
+-48 4
+Game information:
+Landing in progress...
+X=2629m, Y=1694m, HSpeed=21m/s VSpeed=-42m/s
+Fuel=452l, Angle=-48°, Power=4 (4.0m/s2)
+36
+66
+Standard Error Stream:
+step 36
+command -46 4
+Standard Output Stream:
+-46 4
+Game information:
+Landing in progress...
+X=2652m, Y=1652m, HSpeed=24m/s VSpeed=-43m/s
+Fuel=448l, Angle=-46°, Power=4 (4.0m/s2)
+37
+66
+Standard Error Stream:
+step 37
+command -42 4
+Standard Output Stream:
+-42 4
+Game information:
+Landing in progress...
+X=2677m, Y=1609m, HSpeed=27m/s VSpeed=-44m/s
+Fuel=444l, Angle=-42°, Power=4 (4.0m/s2)
+38
+66
+Standard Error Stream:
+step 38
+command -27 4
+Standard Output Stream:
+-27 4
+Game information:
+Landing in progress...
+X=2705m, Y=1565m, HSpeed=28m/s VSpeed=-44m/s
+Fuel=440l, Angle=-27°, Power=4 (4.0m/s2)
+39
+66
+Standard Error Stream:
+step 39
+command -15 4
+Standard Output Stream:
+-15 4
+Game information:
+Landing in progress...
+X=2734m, Y=1521m, HSpeed=30m/s VSpeed=-44m/s
+Fuel=436l, Angle=-15°, Power=4 (4.0m/s2)
+40
+66
+Standard Error Stream:
+step 40
+command -19 3
+Standard Output Stream:
+-19 3
+Game information:
+Landing in progress...
+X=2764m, Y=1477m, HSpeed=31m/s VSpeed=-44m/s
+Fuel=433l, Angle=-19°, Power=3 (3.0m/s2)
+41
+66
+Standard Error Stream:
+step 41
+command -22 4
+Standard Output Stream:
+-22 4
+Game information:
+Landing in progress...
+X=2795m, Y=1433m, HSpeed=32m/s VSpeed=-44m/s
+Fuel=429l, Angle=-22°, Power=4 (4.0m/s2)
+42
+66
+Standard Error Stream:
+step 42
+command -25 4
+Standard Output Stream:
+-25 4
+Game information:
+Landing in progress...
+X=2828m, Y=1388m, HSpeed=34m/s VSpeed=-44m/s
+Fuel=425l, Angle=-25°, Power=4 (4.0m/s2)
+43
+66
+Standard Error Stream:
+step 43
+command -25 3
+Standard Output Stream:
+-25 3
+Game information:
+Landing in progress...
+X=2862m, Y=1344m, HSpeed=35m/s VSpeed=-45m/s
+Fuel=422l, Angle=-25°, Power=3 (3.0m/s2)
+44
+66
+Standard Error Stream:
+step 44
+command -19 3
+Standard Output Stream:
+-19 3
+Game information:
+Landing in progress...
+X=2898m, Y=1298m, HSpeed=36m/s VSpeed=-46m/s
+Fuel=419l, Angle=-19°, Power=3 (3.0m/s2)
+45
+66
+Standard Error Stream:
+step 45
+command -26 3
+Standard Output Stream:
+-26 3
+Game information:
+Landing in progress...
+X=2934m, Y=1251m, HSpeed=37m/s VSpeed=-47m/s
+Fuel=416l, Angle=-26°, Power=3 (3.0m/s2)
+46
+66
+Standard Error Stream:
+step 46
+command -24 4
+Standard Output Stream:
+-24 4
+Game information:
+Landing in progress...
+X=2972m, Y=1203m, HSpeed=39m/s VSpeed=-47m/s
+Fuel=412l, Angle=-24°, Power=4 (4.0m/s2)
+47
+66
+Standard Error Stream:
+step 47
+command -34 4
+Standard Output Stream:
+-34 4
+Game information:
+Landing in progress...
+X=3012m, Y=1156m, HSpeed=41m/s VSpeed=-48m/s
+Fuel=408l, Angle=-34°, Power=4 (4.0m/s2)
+48
+66
+Standard Error Stream:
+step 48
+command -49 4
+Standard Output Stream:
+-49 4
+Game information:
+Landing in progress...
+X=3055m, Y=1107m, HSpeed=44m/s VSpeed=-49m/s
+Fuel=404l, Angle=-49°, Power=4 (4.0m/s2)
+49
+66
+Standard Error Stream:
+step 49
+command -34 3
+Standard Output Stream:
+-34 3
+Game information:
+Landing in progress...
+X=3100m, Y=1058m, HSpeed=46m/s VSpeed=-50m/s
+Fuel=401l, Angle=-34°, Power=3 (3.0m/s2)
+50
+66
+Standard Error Stream:
+step 50
+command -49 4
+Standard Output Stream:
+-49 4
+Game information:
+Landing in progress...
+X=3147m, Y=1007m, HSpeed=49m/s VSpeed=-51m/s
+Fuel=397l, Angle=-49°, Power=4 (4.0m/s2)
+51
+66
+Standard Error Stream:
+step 51
+command -34 3
+Standard Output Stream:
+-34 3
+Game information:
+Landing in progress...
+X=3197m, Y=955m, HSpeed=51m/s VSpeed=-52m/s
+Fuel=394l, Angle=-34°, Power=3 (3.0m/s2)
+52
+66
+Standard Error Stream:
+step 52
+command -49 4
+Standard Output Stream:
+-49 4
+Game information:
+Landing in progress...
+X=3249m, Y=902m, HSpeed=54m/s VSpeed=-54m/s
+Fuel=390l, Angle=-49°, Power=4 (4.0m/s2)
+53
+66
+Standard Error Stream:
+step 53
+command -42 4
+Standard Output Stream:
+-42 4
+Game information:
+Landing in progress...
+X=3304m, Y=848m, HSpeed=56m/s VSpeed=-54m/s
+Fuel=386l, Angle=-42°, Power=4 (4.0m/s2)
+54
+66
+Standard Error Stream:
+step 54
+command -33 4
+Standard Output Stream:
+-33 4
+Game information:
+Landing in progress...
+X=3361m, Y=794m, HSpeed=58m/s VSpeed=-55m/s
+Fuel=382l, Angle=-33°, Power=4 (4.0m/s2)
+55
+66
+Standard Error Stream:
+step 55
+command -41 3
+Standard Output Stream:
+-41 3
+Game information:
+Landing in progress...
+X=3421m, Y=739m, HSpeed=60m/s VSpeed=-56m/s
+Fuel=379l, Angle=-41°, Power=3 (3.0m/s2)
+56
+66
+Standard Error Stream:
+step 56
+command -42 3
+Standard Output Stream:
+-42 3
+Game information:
+Landing in progress...
+X=3482m, Y=682m, HSpeed=62m/s VSpeed=-58m/s
+Fuel=376l, Angle=-42°, Power=3 (3.0m/s2)
+57
+66
+Standard Error Stream:
+step 57
+command -41 2
+Standard Output Stream:
+-41 2
+Game information:
+Landing in progress...
+X=3545m, Y=623m, HSpeed=64m/s VSpeed=-60m/s
+Fuel=374l, Angle=-41°, Power=2 (2.0m/s2)
+58
+66
+Standard Error Stream:
+step 58
+command -26 3
+Standard Output Stream:
+-26 3
+Game information:
+Landing in progress...
+X=3609m, Y=563m, HSpeed=65m/s VSpeed=-61m/s
+Fuel=371l, Angle=-26°, Power=3 (3.0m/s2)
+59
+66
+Standard Error Stream:
+step 59
+command -11 2
+Standard Output Stream:
+-11 2
+Game information:
+Landing in progress...
+X=3674m, Y=501m, HSpeed=65m/s VSpeed=-63m/s
+Fuel=369l, Angle=-11°, Power=2 (2.0m/s2)
+60
+66
+Standard Error Stream:
+step 60
+command 4 1
+Standard Output Stream:
+4 1
+Game information:
+Landing in progress...
+X=3740m, Y=437m, HSpeed=65m/s VSpeed=-65m/s
+Fuel=368l, Angle=4°, Power=1 (1.0m/s2)
+61
+66
+Standard Error Stream:
+step 61
+command -11 0
+Standard Output Stream:
+-11 0
+Game information:
+Landing in progress...
+X=3805m, Y=370m, HSpeed=65m/s VSpeed=-69m/s
+Fuel=368l, Angle=-11°, Power=0 (0.0m/s2)
+62
+66
+Standard Error Stream:
+step 62
+command -1 1
+Standard Output Stream:
+-1 1
+Game information:
+Landing in progress...
+X=3870m, Y=300m, HSpeed=65m/s VSpeed=-72m/s
+Fuel=367l, Angle=-1°, Power=1 (1.0m/s2)
+63
+66
+Standard Error Stream:
+step 63
+command -15 0
+Standard Output Stream:
+-15 0
+Game information:
+Landing in progress...
+X=3936m, Y=227m, HSpeed=65m/s VSpeed=-75m/s
+Fuel=367l, Angle=-15°, Power=0 (0.0m/s2)
+64
+66
+Standard Error Stream:
+step 64
+command 0 1
+Standard Output Stream:
+0 1
+Game information:
+Landing in progress...
+X=4001m, Y=150m, HSpeed=65m/s VSpeed=-78m/s
+Fuel=366l, Angle=0°, Power=1 (1.0m/s2)
+65
+66
+Standard Error Stream:
+step 65
+command 0 0
+Standard Output Stream:
+0 0
+Game information:
+Failure: Vertical speed too fast. Mars Lander crashed and Opportunity has been destroyed in the process.
+X=4001m, Y=150m, HSpeed=65m/s VSpeed=-82m/s
+Fuel=366l, Angle=0°, Power=0 (0.0m/s2)
+66
+66
+Python3
+
+
+  
+Test cases
+01
+Easy on the right
+TRY AGAIN
+02
+Initial speed, correct side
+PLAY TESTCASE
+03
+Initial speed, wrong side
+PLAY TESTCASE
+04
+Deep canyon
+PLAY TESTCASE
+05
+High ground
+PLAY TESTCASE
+Actions
+PLAY ALL TESTCASES  SUBMIT
