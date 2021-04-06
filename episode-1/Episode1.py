@@ -111,8 +111,8 @@ def mutation(gene):
 
 
 # The Mars shuttle lander
-# 做出一個 class 叫作 Ship, 有油料、位置、速度、角度、引擎出力、軌跡、
-# 從開始到落地的一長串 chromosome 也就是一長串的基因 genes (rotate,power)、
+# 做出一個 class 叫作 Ship, 有油料、位置 p、速度 s、角度 a、引擎出力 pwr、軌跡 trace、
+# 從開始到落地的一串 chromosome 也就是一長串的基因 genes (rotate,power)、
 # 還有 score。
 
 class Ship:
