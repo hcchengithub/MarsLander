@@ -5,12 +5,12 @@ class Ship:
     def __init__(self, p0, s0, a0, pwr0, fuel0):
         self.inTheAir = True
         self.fuel = fuel0
-        self.p0 = p0
-        self.s0 = s0
-        self.a0 = a0
-        self.pwr0 = pwr0
-        self.trace = []
-        self.chromosome = []
+        self.p0 = p0  # position, episode-1 only one dimension, the height.
+        self.s0 = s0  # speed, episode-1 only one dimension, the virtical speed.  
+        self.a0 = a0  # angle, episode-1 only one angle, always 0.
+        self.pwr0 = pwr0  # power, thrust power.
+        self.trace = []   # all positions
+        self.chromosome = []  # all (rotate, thrust) pairs
         self.score = 0
         
     def evaluate(self):
