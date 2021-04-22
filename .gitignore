@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+episode-1/.ipynb_checkpoints/
 __pycache__/
 .vscode/
 *.py[cod]
